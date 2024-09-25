@@ -1,0 +1,6 @@
+runtime: nodejs20
+entrypoint: node ./server.js
+service_account: sa-app-dts-ui@transferrclone.iam.gserviceaccount.com #TODO: STEP 4
+vpc_access_connector:
+  name: projects/transferrclone/locations/us-central1/connectors/dts-serverless-vpc #TODO: STEP 4
+  egress_setting: all-traffic
