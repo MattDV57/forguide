@@ -459,6 +459,13 @@ module "private_dns" {
   ]
 }
 
+# Default App Engine Service Account IAM roles
+resource "google_service_account_iam_member" "app_engine_service_account_iam" {
+  service_account_id = "projects/${module.project.project_id}/serviceAccounts/${module.project.project_id}@appspot.gserviceaccount.com"
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:cb-drive-transfer-service-ui@${module.project.project_id}.iam.gserviceaccount.com"
+}
+
 resource "google_dns_record_set" "dns_record_set" {
   project      = module.project.project_id
   managed_zone = module.private_dns.name
