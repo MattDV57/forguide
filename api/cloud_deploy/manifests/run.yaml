@@ -14,7 +14,11 @@ spec:
         run.googleapis.com/startupProbeType: Default
       annotations:
         autoscaling.knative.dev/maxScale: '100'
+<<<<<<< HEAD
         run.googleapis.com/network-interfaces: '[{"network":"drive-transfer-service","subnetwork":"sn-drive-transfer-service-api"}]'
+=======
+        run.googleapis.com/network-interfaces: '[{"network":"drive-transfer-service","subnetwork":"sn-drive-transfer-service"}]'
+>>>>>>> 99f04a3 (testiong)
         run.googleapis.com/vpc-access-egress: private-ranges-only
         run.googleapis.com/execution-environment: gen2
         autoscaling.knative.dev/minScale: '2'
@@ -41,6 +45,14 @@ spec:
             secretKeyRef:
               key: latest
               name: rclone-admin-oauth-client-secret
+<<<<<<< HEAD
+=======
+        - name: GROUP_USER_LIMIT
+          valueFrom:
+            secretKeyRef:
+              key: latest
+              name: group-job-user-limit
+>>>>>>> 99f04a3 (testiong)
         - name: PROJECT_ID
           value: transferrclone
         - name: ENVIRONMENT
@@ -51,8 +63,13 @@ spec:
           value: sa-run-dts-api@transferrclone.iam.gserviceaccount.com
         - name: RCLONE_ADMIN_SA
           value: sa-rclone-admin-transfers@transferrclone.iam.gserviceaccount.com
+<<<<<<< HEAD
         - name: GROUP_USER_LIMIT
           value: 20
+=======
+        - name: RCLONE_CONFIG_BUCKET
+          value: bkt-dts-rclone-config-mount
+>>>>>>> 99f04a3 (testiong)
         resources:
           limits:
             cpu: 2000m

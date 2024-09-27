@@ -20,4 +20,8 @@ locals {
   service_accounts     = try(local.sa_config.service_accounts, {})
   secrets              = try(local.secret_config.secrets, {})
   project_iam_bindings = try(local.iam_config.project_iam.bindings, {})
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 99f04a3 (testiong)

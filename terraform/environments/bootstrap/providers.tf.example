@@ -20,6 +20,7 @@ provider "google" {
   ]
 }
 
+# Configures the provider to use the resource block's specified project for quota checks.
 provider "google-beta" {
   alias = "impersonate"
   scopes = [
@@ -27,9 +28,10 @@ provider "google-beta" {
     "https://www.googleapis.com/auth/userinfo.email",
   ]
   user_project_override = true
-  # billing_project       = var.groups.billing_project
 }
 
+# Configures the provider to not use the resource block's specified project for quota checks.
+# This provider should only be used during project creation and initializing services.
 provider "google-beta" {
   alias                 = "no_user_project_override"
   user_project_override = false
@@ -46,11 +48,7 @@ provider "google-beta" {
 
 data "google_service_account_access_token" "default" {
   provider               = google.impersonate
-  target_service_account = local.tf_service_account
+  target_service_account = var.terraform_sa
   scopes                 = ["userinfo-email", "cloud-platform"]
   lifetime               = "1800s"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 99f04a3 (testiong)

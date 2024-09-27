@@ -55,11 +55,22 @@ resource "google_cloudbuild_trigger" "api_webhook_trigger" {
   ]
 
   build {
+<<<<<<< HEAD
     logs_bucket = "gs://${module.cb_logs_bucket.name}/api"
+=======
+    logs_bucket = "gs://$${_CB_LOGS_BUCKET}/api"
+>>>>>>> 99f04a3 (testiong)
     options {
       log_streaming_option = "STREAM_ON"
       logging              = "GCS_ONLY"
     }
+<<<<<<< HEAD
+=======
+    images = [
+      "$${_REGION}-docker.pkg.dev/$PROJECT_ID/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$COMMIT_SHA",
+      "$${_REGION}-docker.pkg.dev/$PROJECT_ID/$${_AR_REGISTRY_NAME}/$${_IMAGE}:latest"
+    ]
+>>>>>>> 99f04a3 (testiong)
     step {
       id         = "docker-build"
       name       = "gcr.io/cloud-builders/docker"
@@ -117,6 +128,10 @@ resource "google_cloudbuild_trigger" "api_webhook_trigger" {
   }
 
   substitutions = {
+<<<<<<< HEAD
+=======
+    "_CB_LOGS_BUCKET"   = module.cb_logs_bucket.name
+>>>>>>> 99f04a3 (testiong)
     "_AR_REGISTRY_NAME" = "drive-transfer-service"
     "_IMAGE"            = "api"
     "_REGION"           = var.default_region
@@ -147,7 +162,11 @@ resource "google_cloudbuild_trigger" "ui_webhook_trigger" {
   ]
 
   build {
+<<<<<<< HEAD
     logs_bucket = "gs://${module.cb_logs_bucket.name}/ui"
+=======
+    logs_bucket = "gs://$${_CB_LOGS_BUCKET}/ui"
+>>>>>>> 99f04a3 (testiong)
     options {
       log_streaming_option = "STREAM_ON"
       logging              = "GCS_ONLY"
@@ -165,7 +184,12 @@ resource "google_cloudbuild_trigger" "ui_webhook_trigger" {
   }
 
   substitutions = {
+<<<<<<< HEAD
     "_REPO_DIR" = "ui"
+=======
+    "_CB_LOGS_BUCKET" = module.cb_logs_bucket.name
+    "_REPO_DIR"       = "ui"
+>>>>>>> 99f04a3 (testiong)
   }
 
   service_account = module.bootstrap_service_accounts["drive-transfer-service-ui"].id
@@ -193,7 +217,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
   ]
 
   build {
+<<<<<<< HEAD
     logs_bucket = "gs://${module.cb_logs_bucket.name}/tf/${each.value}/plan"
+=======
+    logs_bucket = "gs://$${_CB_LOGS_BUCKET}/tf/$${_ENVIRONMENT}/plan"
+>>>>>>> 99f04a3 (testiong)
     options {
       log_streaming_option = "STREAM_ON"
       logging              = "GCS_ONLY"
@@ -201,7 +229,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
     step {
       id         = "tf-init"
       name       = "$${_REGION}-docker.pkg.dev/$${_AR_PROJECT_ID}/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TERRAFORM_VERSION}"
+<<<<<<< HEAD
       dir        = "$${_REPO_DIR}/environments/${each.value}"
+=======
+      dir        = "$${_REPO_DIR}/environments/$${_ENVIRONMENT}"
+>>>>>>> 99f04a3 (testiong)
       entrypoint = "sh"
       args = [
         "-xe",
@@ -209,7 +241,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
         <<-EOT
         echo ""
         echo "*************** TERRAFORM INIT ******************"
+<<<<<<< HEAD
         echo "******* At environment: ${each.value} *********"
+=======
+        echo "******* At environment: $${_ENVIRONMENT} *********"
+>>>>>>> 99f04a3 (testiong)
         echo "*************************************************"
         terraform init || exit 1
         EOT
@@ -218,7 +254,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
     step {
       id         = "tf-validate"
       name       = "$${_REGION}-docker.pkg.dev/$${_AR_PROJECT_ID}/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TERRAFORM_VERSION}"
+<<<<<<< HEAD
       dir        = "$${_REPO_DIR}/environments/${each.value}"
+=======
+      dir        = "$${_REPO_DIR}/environments/$${_ENVIRONMENT}"
+>>>>>>> 99f04a3 (testiong)
       entrypoint = "sh"
       args = [
         "-xe",
@@ -226,7 +266,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
         <<-EOT
         echo ""
         echo "*************** TERRAFORM VALIDATE ******************"
+<<<<<<< HEAD
         echo "******* At environment: ${each.value} *********"
+=======
+        echo "******* At environment: $${_ENVIRONMENT} *********"
+>>>>>>> 99f04a3 (testiong)
         echo "*************************************************"
         terraform validate || exit 1
         EOT
@@ -235,7 +279,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
     step {
       id         = "tf-plan"
       name       = "$${_REGION}-docker.pkg.dev/$${_AR_PROJECT_ID}/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TERRAFORM_VERSION}"
+<<<<<<< HEAD
       dir        = "$${_REPO_DIR}/environments/${each.value}"
+=======
+      dir        = "$${_REPO_DIR}/environments/$${_ENVIRONMENT}"
+>>>>>>> 99f04a3 (testiong)
       entrypoint = "sh"
       args = [
         "-xe",
@@ -243,7 +291,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
         <<-EOT
         echo ""
         echo "*************** TERRAFORM PLAN ******************"
+<<<<<<< HEAD
         echo "******* At environment: ${each.value} *********"
+=======
+        echo "******* At environment: $${_ENVIRONMENT} *********"
+>>>>>>> 99f04a3 (testiong)
         echo "*************************************************"
         terraform plan -lock=false -input=false || exit 1
         EOT
@@ -252,6 +304,11 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
   }
 
   substitutions = {
+<<<<<<< HEAD
+=======
+    "_CB_LOGS_BUCKET"    = module.cb_logs_bucket.name
+    "_ENVIRONMENT"       = each.value
+>>>>>>> 99f04a3 (testiong)
     "_AR_PROJECT_ID"     = module.project.project_id
     "_AR_REGISTRY_NAME"  = "terraform-cloudbuilder"
     "_IMAGE"             = "terraform"
@@ -286,12 +343,21 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
 
   build {
     timeout     = "1200s"
+<<<<<<< HEAD
     logs_bucket = "gs://${module.cb_logs_bucket.name}/tf/${each.value}/apply"
     artifacts {
       objects {
         location = "gs://${module.cb_artifacts_bucket.name}/tf/${each.value}/$BUILD_ID"
         paths = [
           "/workspace/$${_REPO_DIR}/environments/${each.value}/*.plan"
+=======
+    logs_bucket = "gs://$${_CB_LOGS_BUCKET}/tf/$${_ENVIRONMENT}/apply"
+    artifacts {
+      objects {
+        location = "gs://$${_CB_ARTIFACTS_BUCKET}/tf/$${_ENVIRONMENT}/$BUILD_ID"
+        paths = [
+          "/workspace/$${_REPO_DIR}/environments/$${_ENVIRONMENT}/*.plan"
+>>>>>>> 99f04a3 (testiong)
         ]
       }
     }
@@ -302,7 +368,11 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
     step {
       id         = "tf-init"
       name       = "$${_REGION}-docker.pkg.dev/$${_AR_PROJECT_ID}/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TERRAFORM_VERSION}"
+<<<<<<< HEAD
       dir        = "$${_REPO_DIR}/environments/${each.value}"
+=======
+      dir        = "$${_REPO_DIR}/environments/$${_ENVIRONMENT}"
+>>>>>>> 99f04a3 (testiong)
       entrypoint = "sh"
       args = [
         "-xe",
@@ -310,7 +380,11 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
         <<-EOT
         echo ""
         echo "*************** TERRAFORM INIT ******************"
+<<<<<<< HEAD
         echo "******* At environment: ${each.value} *********"
+=======
+        echo "******* At environment: $${_ENVIRONMENT} *********"
+>>>>>>> 99f04a3 (testiong)
         echo "*************************************************"
         terraform init || exit 1
         EOT
@@ -319,7 +393,11 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
     step {
       id         = "tf-validate"
       name       = "$${_REGION}-docker.pkg.dev/$${_AR_PROJECT_ID}/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TERRAFORM_VERSION}"
+<<<<<<< HEAD
       dir        = "$${_REPO_DIR}/environments/${each.value}"
+=======
+      dir        = "$${_REPO_DIR}/environments/$${_ENVIRONMENT}"
+>>>>>>> 99f04a3 (testiong)
       entrypoint = "sh"
       args = [
         "-xe",
@@ -327,7 +405,11 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
         <<-EOT
         echo ""
         echo "*************** TERRAFORM VALIDATE ******************"
+<<<<<<< HEAD
         echo "******* At environment: ${each.value} *********"
+=======
+        echo "******* At environment: $${_ENVIRONMENT} *********"
+>>>>>>> 99f04a3 (testiong)
         echo "*************************************************"
         terraform validate || exit 1
         EOT
@@ -336,7 +418,11 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
     step {
       id         = "tf-plan"
       name       = "$${_REGION}-docker.pkg.dev/$${_AR_PROJECT_ID}/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TERRAFORM_VERSION}"
+<<<<<<< HEAD
       dir        = "$${_REPO_DIR}/environments/${each.value}"
+=======
+      dir        = "$${_REPO_DIR}/environments/$${_ENVIRONMENT}"
+>>>>>>> 99f04a3 (testiong)
       entrypoint = "sh"
       args = [
         "-xe",
@@ -344,16 +430,26 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
         <<-EOT
         echo ""
         echo "*************** TERRAFORM PLAN ******************"
+<<<<<<< HEAD
         echo "******* At environment: ${each.value} *********"
         echo "*************************************************"
         terraform plan -input=false -out="/workspace/$${_REPO_DIR}/environments/${each.value}/$${BUILD_ID}_tfplan.plan" || exit 1
+=======
+        echo "******* At environment: $${_ENVIRONMENT} *********"
+        echo "*************************************************"
+        terraform plan -input=false -out="/workspace/$${_REPO_DIR}/environments/$${_ENVIRONMENT}/$${BUILD_ID}_tfplan.plan" || exit 1
+>>>>>>> 99f04a3 (testiong)
         EOT
       ]
     }
     step {
       id         = "tf-apply"
       name       = "$${_REGION}-docker.pkg.dev/$${_AR_PROJECT_ID}/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TERRAFORM_VERSION}"
+<<<<<<< HEAD
       dir        = "$${_REPO_DIR}/environments/${each.value}"
+=======
+      dir        = "$${_REPO_DIR}/environments/$${_ENVIRONMENT}"
+>>>>>>> 99f04a3 (testiong)
       entrypoint = "sh"
       args = [
         "-xe",
@@ -361,21 +457,39 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
         <<-EOT
         echo ""
         echo "*************** TERRAFORM APPLY ******************"
+<<<<<<< HEAD
         echo "******* At environment: ${each.value} *********"
         echo "*************************************************"
         terraform apply -auto-approve -input=false "/workspace/$${_REPO_DIR}/environments/${each.value}/$${BUILD_ID}_tfplan.plan" || exit 1
+=======
+        echo "******* At environment: $${_ENVIRONMENT} *********"
+        echo "*************************************************"
+        terraform apply -auto-approve -input=false "/workspace/$${_REPO_DIR}/environments/$${_ENVIRONMENT}/$${BUILD_ID}_tfplan.plan" || exit 1
+>>>>>>> 99f04a3 (testiong)
         EOT
       ]
     }
   }
 
   substitutions = {
+<<<<<<< HEAD
     "_AR_PROJECT_ID"     = module.project.project_id
     "_AR_REGISTRY_NAME"  = "terraform-cloudbuilder"
     "_IMAGE"             = "terraform"
     "_TERRAFORM_VERSION" = "1.9.5"
     "_REGION"            = var.default_region
     "_REPO_DIR"          = "terraform"
+=======
+    "_CB_LOGS_BUCKET"      = module.cb_logs_bucket.name
+    "_ENVIRONMENT"         = each.value
+    "_CB_ARTIFACTS_BUCKET" = module.cb_artifacts_bucket.name
+    "_AR_PROJECT_ID"       = module.project.project_id
+    "_AR_REGISTRY_NAME"    = "terraform-cloudbuilder"
+    "_IMAGE"               = "terraform"
+    "_TERRAFORM_VERSION"   = "1.9.5"
+    "_REGION"              = var.default_region
+    "_REPO_DIR"            = "terraform"
+>>>>>>> 99f04a3 (testiong)
   }
 
   service_account = module.bootstrap_service_accounts["drive-transfer-service-tf"].id
@@ -403,11 +517,21 @@ resource "google_cloudbuild_trigger" "terraform_builder_trigger" {
   ]
 
   build {
+<<<<<<< HEAD
     logs_bucket = "gs://${module.cb_logs_bucket.name}/terraform-builder"
+=======
+    logs_bucket = "gs://$${_CB_LOGS_BUCKET}/terraform-builder"
+>>>>>>> 99f04a3 (testiong)
     options {
       log_streaming_option = "STREAM_ON"
       logging              = "GCS_ONLY"
     }
+<<<<<<< HEAD
+=======
+    images = [
+      "$${_REGION}-docker.pkg.dev/$PROJECT_ID/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$${_TF_VERSION}"
+    ]
+>>>>>>> 99f04a3 (testiong)
     step {
       id         = "docker-build"
       name       = "gcr.io/cloud-builders/docker"
@@ -423,6 +547,7 @@ resource "google_cloudbuild_trigger" "terraform_builder_trigger" {
         EOT
       ]
     }
+<<<<<<< HEAD
     step {
       id   = "docker-push"
       name = "gcr.io/cloud-builders/docker"
@@ -435,6 +560,12 @@ resource "google_cloudbuild_trigger" "terraform_builder_trigger" {
   }
 
   substitutions = {
+=======
+  }
+
+  substitutions = {
+    "_CB_LOGS_BUCKET"   = module.cb_logs_bucket.name
+>>>>>>> 99f04a3 (testiong)
     "_AR_REGISTRY_NAME" = "terraform-cloudbuilder"
     "_IMAGE"            = "terraform"
     "_TF_VERSION"       = "1.9.5"
@@ -466,11 +597,21 @@ resource "google_cloudbuild_trigger" "gcs_fuse_trigger" {
   ]
 
   build {
+<<<<<<< HEAD
     logs_bucket = "gs://${module.cb_logs_bucket.name}/gcs-fuse"
+=======
+    logs_bucket = "gs://$${_CB_LOGS_BUCKET}/gcs-fuse"
+>>>>>>> 99f04a3 (testiong)
     options {
       log_streaming_option = "STREAM_ON"
       logging              = "GCS_ONLY"
     }
+<<<<<<< HEAD
+=======
+    images = [
+      "$${_REGION}-docker.pkg.dev/$PROJECT_ID/$${_AR_REGISTRY_NAME}/$${_IMAGE}:latest"
+    ]
+>>>>>>> 99f04a3 (testiong)
     step {
       id         = "docker-pull"
       name       = "gcr.io/cloud-builders/docker"
@@ -498,6 +639,7 @@ resource "google_cloudbuild_trigger" "gcs_fuse_trigger" {
         EOT
       ]
     }
+<<<<<<< HEAD
     step {
       id   = "docker-push-latest"
       name = "gcr.io/cloud-builders/docker"
@@ -510,6 +652,12 @@ resource "google_cloudbuild_trigger" "gcs_fuse_trigger" {
   }
 
   substitutions = {
+=======
+  }
+
+  substitutions = {
+    "_CB_LOGS_BUCKET"   = module.cb_logs_bucket.name
+>>>>>>> 99f04a3 (testiong)
     "_AR_REGISTRY_NAME" = "drive-transfer-service"
     "_IMAGE"            = "gcs-fuse-csi-driver-sidecar-mounter"
     # IMPORTANT: THIS SHA VALUE SHOULD CHANGE ACCORDING TO GKE VERSION 
@@ -519,4 +667,8 @@ resource "google_cloudbuild_trigger" "gcs_fuse_trigger" {
   }
 
   service_account = module.bootstrap_service_accounts["container-builder"].id
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 99f04a3 (testiong)

@@ -25,4 +25,72 @@ variable "environment_terraform_sa_roles" {
 }
 
 variable "workflow_types" {
+<<<<<<< HEAD
 }
+=======
+}
+
+variable "job_timeout" {
+  default = 604800
+}
+
+variable "rclone_transfers" {
+  default = 16
+}
+
+variable "rclone_checkers" {
+  default = 16
+}
+
+variable "rclone_buffer_size" {
+  default = "512Mi"
+}
+
+variable "rclone_drive_chunk_size" {
+  default = "512Mi"
+}
+
+variable "deduplicate_job_cpu" {
+  default = "0.5"
+}
+
+variable "deduplicate_job_memory" {
+  default = "512Mi"
+}
+
+variable "transfer_job_cpu" {
+  default = "1"
+}
+
+variable "transfer_job_memory" {
+  default = "1Gi"
+}
+
+variable "group_user_limit" {
+  default = 20
+}
+
+variable "admin_queue_cpu_quota" {
+  default = 10
+}
+
+variable "admin_queue_memory_quota" {
+  default = "10Gi"
+}
+
+variable "admin_queue_storage_quota" {
+  default = "10Gi"
+}
+
+variable "user_queue_cpu_quota" {
+  default = 10
+}
+
+variable "user_queue_memory_quota" {
+  default = "10Gi"
+}
+
+variable "user_queue_storage_quota" {
+  default = "10Gi"
+}
+>>>>>>> 99f04a3 (testiong)

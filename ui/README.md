@@ -15,7 +15,11 @@ HTML/Javascript + Express JS UI that allows users to submit jobs and monitor the
 6) Click `Create`
 
 ### Config File
+<<<<<<< HEAD
 1) Open `config/production.json` file and update the following params
+=======
+1) Open `config/production.json` file and update the following params:
+>>>>>>> 99f04a3 (testiong)
 
 | Param | Description |
 | -- | -- |

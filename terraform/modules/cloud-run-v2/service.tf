@@ -25,6 +25,14 @@ resource "google_cloud_run_v2_service" "service" {
   launch_stage     = var.launch_stage
   custom_audiences = var.custom_audiences
 
+<<<<<<< HEAD
+=======
+  traffic {
+    type    = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"
+    percent = 100
+  }  
+
+>>>>>>> 99f04a3 (testiong)
   template {
     encryption_key = var.encryption_key
     revision       = local.revision_name

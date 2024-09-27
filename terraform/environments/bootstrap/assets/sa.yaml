@@ -3,6 +3,7 @@ service_accounts:
     prefix: "sa"
     sa_iam:
       "roles/iam.serviceAccountUser":
+<<<<<<< HEAD
         - "group:alladmins@themicrolab.joonix.net"
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
       "roles/iam.serviceAccountTokenCreator":
@@ -10,6 +11,18 @@ service_accounts:
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
     project_iam:
       "transferrclone": #TODO: STEP 4
+=======
+        - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
+        - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
+        # - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
+      "roles/iam.serviceAccountTokenCreator":
+        - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
+        - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
+    project_iam:
+      "transferrclone": #TODO: STEP 4
+        - "roles/appengine.appAdmin"
+        - "roles/appengine.appCreator"
+>>>>>>> 99f04a3 (testiong)
         - "roles/artifactregistry.admin"
         - "roles/cloudbuild.builds.editor"
         - "roles/cloudbuild.connectionAdmin"
@@ -35,6 +48,10 @@ service_accounts:
     sa_iam:
       "roles/iam.serviceAccountUser":
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
+<<<<<<< HEAD
+=======
+        - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
+>>>>>>> 99f04a3 (testiong)
         # - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
       "roles/iam.serviceAccountTokenCreator":
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
@@ -56,6 +73,10 @@ service_accounts:
     sa_iam:
       "roles/iam.serviceAccountUser":
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
+<<<<<<< HEAD
+=======
+        - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
+>>>>>>> 99f04a3 (testiong)
         # - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
       "roles/iam.serviceAccountTokenCreator":
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
@@ -79,6 +100,10 @@ service_accounts:
     sa_iam:
       "roles/iam.serviceAccountUser":
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
+<<<<<<< HEAD
+=======
+        - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
+>>>>>>> 99f04a3 (testiong)
         # - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
       "roles/iam.serviceAccountTokenCreator":
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
@@ -113,7 +138,11 @@ service_accounts:
         - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
         - "serviceAccount:cb-drive-transfer-service-ui@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
     project_iam:
+<<<<<<< HEAD
       "transferrclone":
+=======
+      "transferrclone": #TODO: STEP 4
+>>>>>>> 99f04a3 (testiong)
         - "roles/datastore.user"
         - "roles/storage.admin"
     storage_iam: {}

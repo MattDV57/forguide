@@ -1,6 +1,10 @@
 # Drive Transfer Service: Project Bootstrap
 
+<<<<<<< HEAD
 1) To run the Drive Transfer Service Bootstrap step, your user should have the following IAM roles on the existing project:
+=======
+1) To run the Drive Transfer Service "Bootstrap" step, your user should have the following IAM roles on the existing project:
+>>>>>>> 99f04a3 (testiong)
 - Cloud Build Editor
 - Storage Admin
 - Service Usage Admin
@@ -55,6 +59,15 @@ common_config = {
   "tf_service_account" = "sa-drive-transfer-service-tf@[PROJECT_ID].iam.gserviceaccount.com"
   "tf_state_bucket" = "bkt-[PREFIX]-dts-tf-state"
 }
+<<<<<<< HEAD
+=======
+secret_manager_secrets = {
+  ...
+}
+service_accounts = {
+  ...
+}
+>>>>>>> 99f04a3 (testiong)
 ```
 
 7) This step enabled a set of APIs on your project, created a Terraform service account (among others) and granted them a set of IAM roles on the project, and created a Google Cloud Storage bucket to store the Terraform state files. It also creates a set of Secret Manager secrets and Artifact Registry repositories to hold our container images.
@@ -65,6 +78,7 @@ common_config = {
 
 10) Remove the `.example` suffix from the `network.tf` file. Uncomment the `vpc_network` attribute in `outputs.tf` (marked with `#TODO: STEP 10`)
 
+<<<<<<< HEAD
 11) Setup the CI/CD pipelines for the Terraform, API, and UI. CI/CD pipelines are defined for either Secure Source Manager, Github, or Gitlab Enterprise. Remove the `.example` suffix **ONLY** from the appropriate `cloudbuild_*.tf` file, populate the appropriate Secret Manager secrets, and replace the  placeholder values:
 
 ### Secure Source Manager (`cloudbuild_ssm.tf`):
@@ -75,6 +89,21 @@ openssl rand -base64 20 |md5 |head -c20;echo
 ```
 c. Replace the following placeholders in `cloudbuild_ssm.tf`:
 - `[SSM_REPO_URI]`
+=======
+11) Setup the CI/CD pipelines for the Terraform, API, and UI. CI/CD pipelines are defined for either Secure Source Manager, Github, or Gitlab Enterprise. Remove the `.example` suffix **ONLY** from the appropriate `cloudbuild_*.tf` file (Secure Source Manager does not have one as the triggers are defined in `.cloudbuild/triggers.yaml`), populate the appropriate Secret Manager secrets, and replace any placeholder values:
+
+### Secure Source Manager:
+a. Ensure you have a [Secure Source Manager instance provisioned](https://cloud.google.com/secure-source-manager/docs/create-instance) for your organization.
+b. Uncomment "securesourcemanager.googleapis.com" in `terraform.tfvars`. Remove the commented lines from the following files marked `#TODO: STEP 11`:
+- `assets/iam.yaml`
+- `assets/sa.yaml`
+c. The Cloud Build triggers for Secure Source Manager are defined in `.cloudbuild/triggers.yaml`. Simply push your repository to the remote `main` branch for the Cloud Build triggers to run:
+```
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
+>>>>>>> 99f04a3 (testiong)
 
 ### Github (`cloudbuild_github.tf`):
 a. [Install the Cloud Build GitHub App](https://github.com/apps/google-cloud-build) on your GitHub account or in an organization you own.
@@ -85,7 +114,11 @@ d. Replace the following placeholders in `cloudbuild_github.tf`:
 - `[GITHUB_REPO_NAME]`
 - `[GITHUB_REPO_URI]`
 - `[INSTALLATION_ID]` (Installation ID of your Cloud Build GitHub app. Your installation ID can be found in the URL of your Cloud Build GitHub App. You can find this value by navigating to your repository's "Settings" > "GitHub Apps" > "Google Cloud Build" > "Configure". In the URL, `https://github.com/settings/installations/1234567`, the installation ID is the numerical value `1234567`)
+<<<<<<< HEAD
 e. Navigate to `https://console.cloud.google.com/cloud-build/triggers;region=global/connect?project=[PROJECT_NUMBER]` to finish connecting Github to your project.
+=======
+e. Navigate to `https://console.cloud.google.com/cloud-build/triggers;region=global/connect?project=[PROJECT_NUMBER]` to finish connecting Github to your project. Ensure you select the same region for the connection as the triggers (i.e. [DEFAULT_REGION]).
+>>>>>>> 99f04a3 (testiong)
 
 ### Gitlab Enterprise (`cloudbuild_gitlab.tf`):
 a. On the GitLab Enterprise Edition page for your instance, click on your avatar in the upper-right corner. Click Edit profile, then select Access tokens.

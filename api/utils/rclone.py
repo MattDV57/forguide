@@ -18,8 +18,12 @@ import logging
 # Google Cloud Imports
 from google.cloud import storage
 
+<<<<<<< HEAD
 project_id = os.environ.get("PROJECT_ID")
 config_bucket_name = f"{project_id}-rclone-config-mount"
+=======
+config_bucket_name = os.environ.get("RCLONE_CONFIG_BUCKET")
+>>>>>>> 99f04a3 (testiong)
 storage_client = storage.Client()
 
 def create_config_file(job_id, job_config):

@@ -17,4 +17,8 @@ terraform {
     bucket = "bkt-dts-dts-tf-state" #TODO: STEP 4
     prefix = "bootstrap"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 99f04a3 (testiong)

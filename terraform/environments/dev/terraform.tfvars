@@ -12,7 +12,11 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 
+<<<<<<< HEAD
 project_id  = "transferrclone" #TODO: STEP 4
+=======
+project_id  = "transferrclone"  #TODO: STEP 4
+>>>>>>> 99f04a3 (testiong)
 environment = "dev" #TODO: STEP 4
 environment_project_services = [
   "admin.googleapis.com",
@@ -56,4 +60,25 @@ workflow_types = [
   "shared",
   "mydrive",
   "group"
+<<<<<<< HEAD
 ]
+=======
+]
+# Resource Allocation
+job_timeout = 604800
+rclone_transfers = 16
+rclone_checkers = 16
+rclone_buffer_size = "512Mi"
+rclone_drive_chunk_size = "512Mi"
+deduplicate_job_cpu = "0.5"
+deduplicate_job_memory = "512Mi"
+transfer_job_cpu = "1"
+transfer_job_memory = "1Gi"
+group_user_limit = 20
+admin_queue_cpu_quota = 10
+admin_queue_memory_quota = "10Gi"
+admin_queue_storage_quota = "10Gi"
+user_queue_cpu_quota = 10
+user_queue_memory_quota = "10Gi"
+user_queue_storage_quota = "10Gi"
+>>>>>>> 99f04a3 (testiong)
