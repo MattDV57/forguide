@@ -13,19 +13,11 @@
 # * limitations under the License.
 
 module "project" {
-<<<<<<< HEAD
-  source            = "../../modules/project"
-  billing_account   = var.billing_account_id
-  project_create    = false
-  name              = var.project_id
-  services          = var.bootstrap_project_services
-=======
   source          = "../../modules/project"
   billing_account = var.billing_account_id
   project_create  = false
   name            = var.project_id
   services        = var.bootstrap_project_services
->>>>>>> 99f04a3 (testiong)
   labels = {
     "firebase" = "enabled"
   }
@@ -78,11 +70,7 @@ module "bootstrap_service_accounts" {
 
 # Project IAM Bindings (Additive)
 module "project_iam_additive" {
-<<<<<<< HEAD
-  source = "../../modules/projects-iam"
-=======
   source   = "../../modules/projects-iam"
->>>>>>> 99f04a3 (testiong)
   projects = [module.project.project_id]
   mode     = "additive"
   bindings = local.project_iam_bindings
@@ -161,8 +149,4 @@ module "drive_transfer_service_artifact_repo" {
       module.bootstrap_service_accounts["container-builder"].iam_email,
     ]
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 99f04a3 (testiong)

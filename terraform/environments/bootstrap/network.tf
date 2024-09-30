@@ -119,8 +119,4 @@ module "nat" {
   depends_on = [
     module.vpc
   ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 99f04a3 (testiong)

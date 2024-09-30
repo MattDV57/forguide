@@ -12,15 +12,6 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 
-<<<<<<< HEAD
-################################################################################
-################################################################################
-################################  STEP 1 #######################################
-################################################################################
-################################################################################
-
-=======
->>>>>>> 99f04a3 (testiong)
 # Import values from remote Terraform state outputs
 locals {
   # Bootstrap imports
@@ -30,46 +21,26 @@ locals {
   default_prefix               = data.terraform_remote_state.bootstrap.outputs.common_config.default_prefix
   tf_service_account           = data.terraform_remote_state.bootstrap.outputs.common_config.tf_service_account
   vpc_network                  = data.terraform_remote_state.bootstrap.outputs.common_config.vpc_network
-<<<<<<< HEAD
-  api_service_account          = data.terraform_remote_state.bootstrap.outputs.api_service_account
-  ui_service_account           = data.terraform_remote_state.bootstrap.outputs.ui_service_account
-  workflows_service_account    = data.terraform_remote_state.bootstrap.outputs.workflows_service_account
-  rclone_admin_service_account = data.terraform_remote_state.bootstrap.outputs.rclone_admin_service_account
-  oauth_secret_manager_secrets = data.terraform_remote_state.bootstrap.outputs.oauth_secret_manager_secrets
-=======
   api_service_account          = data.terraform_remote_state.bootstrap.outputs.service_accounts.run-dts-api
   ui_service_account           = data.terraform_remote_state.bootstrap.outputs.service_accounts.app-dts-ui
   workflows_service_account    = data.terraform_remote_state.bootstrap.outputs.service_accounts.workflow-dts-api
   rclone_admin_service_account = data.terraform_remote_state.bootstrap.outputs.service_accounts.rclone-admin-transfers
   secret_manager_secrets       = data.terraform_remote_state.bootstrap.outputs.secret_manager_secrets
->>>>>>> 99f04a3 (testiong)
   app_engine_location          = local.default_region == "us-central1" ? "us-central" : local.default_region
 }
 
 # Environment Project APIs & IAM
 module "project" {
-<<<<<<< HEAD
-  source            = "../../modules/project"
-  billing_account   = local.billing_account_id
-  project_create    = false # Change to true if the project does not exist and needs to be created
-  name              = var.project_id
-  services          = var.environment_project_services
-=======
   source          = "../../modules/project"
   billing_account = local.billing_account_id
   project_create  = false # Change to true if the project does not exist and needs to be created
   name            = var.project_id
   services        = var.environment_project_services
->>>>>>> 99f04a3 (testiong)
 }
 
 # Project IAM Bindings (Additive)
 module "project_iam_additive" {
-<<<<<<< HEAD
-  source = "../../modules/projects-iam"
-=======
   source   = "../../modules/projects-iam"
->>>>>>> 99f04a3 (testiong)
   projects = [module.project.project_id]
   mode     = "additive"
   bindings = local.project_iam_bindings
@@ -110,11 +81,7 @@ resource "google_artifact_registry_repository_iam_binding" "drive_transfer_servi
   repository = "drive-transfer-service"
   role       = "roles/artifactregistry.reader"
   members = [
-<<<<<<< HEAD
-    "principal://iam.googleapis.com/projects/${module.project.number}/locations/global/workloadIdentityPools/${module.project.project_id}.svc.id.goog/subject/ns/stanford-admin/sa/sa-rclone-admin-transfers"
-=======
     "principal://iam.googleapis.com/projects/${module.project.number}/locations/global/workloadIdentityPools/${module.project.project_id}.svc.id.goog/subject/ns/dts-admin/sa/sa-rclone-admin-transfers"
->>>>>>> 99f04a3 (testiong)
   ]
 
   depends_on = [
@@ -125,11 +92,7 @@ resource "google_artifact_registry_repository_iam_binding" "drive_transfer_servi
 # Cloud Deploy Pipeline IAM roles
 resource "google_storage_bucket_iam_member" "cloud_deploy_bucket_iam" {
   bucket = "${local.default_region}.deploy-artifacts.${module.project.project_id}.appspot.com"
-<<<<<<< HEAD
-  role = "roles/storage.admin"
-=======
   role   = "roles/storage.admin"
->>>>>>> 99f04a3 (testiong)
   member = "serviceAccount:sa-drive-transfer-service-cd@${module.project.project_id}.iam.gserviceaccount.com"
 }
 
@@ -168,24 +131,16 @@ data "google_secret_manager_secret_version" "ui_oauth_client_secret" {
 
 # Frontend UI - App Engine Application 
 resource "google_app_engine_application" "app" {
-<<<<<<< HEAD
-  project     = module.project.project_id
-  location_id = local.app_engine_location
-  iap {
-=======
   project       = module.project.project_id
   location_id   = local.app_engine_location
   database_type = "CLOUD_FIRESTORE"
   iap {
     enabled              = true
->>>>>>> 99f04a3 (testiong)
     oauth2_client_id     = data.google_secret_manager_secret_version.ui_oauth_client_id.secret_data
     oauth2_client_secret = data.google_secret_manager_secret_version.ui_oauth_client_secret.secret_data
   }
 }
 
-<<<<<<< HEAD
-=======
 # Default App Engine Service Account IAM roles
 resource "google_service_account_iam_member" "app_engine_service_account_iam" {
   service_account_id = "projects/${module.project.project_id}/serviceAccounts/${module.project.project_id}@appspot.gserviceaccount.com"
@@ -197,7 +152,6 @@ resource "google_service_account_iam_member" "app_engine_service_account_iam" {
     ]
 }
 
->>>>>>> 99f04a3 (testiong)
 # Firebase
 resource "google_firebase_project" "default" {
   provider = google-beta
@@ -244,11 +198,7 @@ resource "google_firebaserules_ruleset" "firestore_ruleset" {
 # Releases the ruleset for the Firestore instance.
 resource "google_firebaserules_release" "firestore_rules_release" {
   provider     = google-beta
-<<<<<<< HEAD
-  name         = "cloud.firestore"  # must be cloud.firestore
-=======
   name         = "cloud.firestore" # must be cloud.firestore
->>>>>>> 99f04a3 (testiong)
   ruleset_name = google_firebaserules_ruleset.firestore_ruleset.name
   project      = module.project.project_id
 
@@ -286,11 +236,7 @@ module "rclone_config_bucket" {
   versioning    = true
   iam = {
     "roles/storage.admin" = [
-<<<<<<< HEAD
-      "principal://iam.googleapis.com/projects/${module.project.number}/locations/global/workloadIdentityPools/${module.project.project_id}.svc.id.goog/subject/ns/stanford-admin/sa/sa-rclone-admin-transfers",
-=======
       "principal://iam.googleapis.com/projects/${module.project.number}/locations/global/workloadIdentityPools/${module.project.project_id}.svc.id.goog/subject/ns/dts-admin/sa/sa-rclone-admin-transfers",
->>>>>>> 99f04a3 (testiong)
       local.api_service_account.iam_email
     ]
   }
@@ -322,12 +268,6 @@ module "kueue_cluster_config_bucket" {
 
 # Upload Kueue Cluster Configs - GCS Objects
 resource "google_storage_bucket_object" "kueue_cluster_config_object" {
-<<<<<<< HEAD
-  for_each     = fileset("${path.module}/assets/cluster-config", "*.yaml")
-  bucket       = module.kueue_cluster_config_bucket.id
-  name         = each.value
-  source       = "${path.module}/assets/cluster-config/${each.value}"
-=======
   for_each = fileset("${path.module}/assets/cluster-config", "*.yaml")
   bucket   = module.kueue_cluster_config_bucket.id
   name     = each.value
@@ -342,7 +282,6 @@ resource "google_storage_bucket_object" "kueue_cluster_config_object" {
       user_queue_storage_quota  = var.user_queue_storage_quota,
     }
   )
->>>>>>> 99f04a3 (testiong)
   content_type = "application/x-yaml"
 
   depends_on = [
@@ -480,22 +419,6 @@ module "rclone_api_cloud_run" {
         }
       }
       env = {
-<<<<<<< HEAD
-        PROJECT_ID       = module.project.project_id
-        ENVIRONMENT      = var.environment
-        REGION           = local.default_region
-        CLOUD_RUN_SA     = local.api_service_account.email
-        RCLONE_ADMIN_SA  = local.rclone_admin_service_account.email
-        GROUP_USER_LIMIT = 20
-      }
-      env_from_key = {
-        OAUTH_CLIENT_ID = {
-          secret  = local.oauth_secret_manager_secrets["rclone_admin_client_id"]
-          version = "latest"
-        }
-        OAUTH_CLIENT_SECRET = {
-          secret  = local.oauth_secret_manager_secrets["rclone_admin_client_secret"]
-=======
         PROJECT_ID           = module.project.project_id
         ENVIRONMENT          = var.environment
         REGION               = local.default_region
@@ -514,7 +437,6 @@ module "rclone_api_cloud_run" {
         }
         GROUP_USER_LIMIT = {
           secret = local.secret_manager_secrets["group_job_user_limit"]
->>>>>>> 99f04a3 (testiong)
           version = "latest"
         }
       }
@@ -558,16 +480,6 @@ module "private_dns" {
   ]
 }
 
-<<<<<<< HEAD
-# Default App Engine Service Account IAM roles
-resource "google_service_account_iam_member" "app_engine_service_account_iam" {
-  service_account_id = "projects/${module.project.project_id}/serviceAccounts/${module.project.project_id}@appspot.gserviceaccount.com"
-  role               = "roles/iam.serviceAccountUser"
-  member             = "serviceAccount:cb-drive-transfer-service-ui@${module.project.project_id}.iam.gserviceaccount.com"
-}
-
-=======
->>>>>>> 99f04a3 (testiong)
 resource "google_dns_record_set" "dns_record_set" {
   project      = module.project.project_id
   managed_zone = module.private_dns.name
@@ -598,20 +510,6 @@ resource "google_workflows_workflow" "rclone_workflows" {
     CLUSTER_LOCATION        = local.default_region
     CLUSTER_NAME            = module.kueue_autopilot_cluster.name
     CONFIG_BUCKET           = module.rclone_config_bucket.name
-<<<<<<< HEAD
-    JOB_TIMEOUT             = 604800
-    RCLONE_TRANSFERS        = 16
-    RCLONE_CHECKERS         = 16
-    RCLONE_BUFFER_SIZE      = "512Mi"
-    RCLONE_DRIVE_CHUNK_SIZE = "512Mi"
-    DEDUPE_JOB_CPU          = "0.5"
-    DEDUPE_JOB_MEMORY       = "512Mi"
-    TRANSFER_JOB_CPU        = "1"
-    TRANSFER_JOB_MEMORY     = "1Gi"
-  }
-  source_contents = file("${path.module}/assets/workflow_${each.value}.yaml")
-}
-=======
     JOB_TIMEOUT             = var.job_timeout
     RCLONE_TRANSFERS        = var.rclone_transfers
     RCLONE_CHECKERS         = var.rclone_checkers
@@ -624,4 +522,3 @@ resource "google_workflows_workflow" "rclone_workflows" {
   }
   source_contents = file("${path.module}/assets/workflow_${each.value}.yaml")
 }
->>>>>>> 99f04a3 (testiong)

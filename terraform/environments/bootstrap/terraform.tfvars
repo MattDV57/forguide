@@ -43,8 +43,4 @@ bootstrap_project_services = [
 terraform_environments = [
   "bootstrap",
   "dev", #TODO: STEP 4
-<<<<<<< HEAD
 ]
-=======
-]
->>>>>>> 99f04a3 (testiong)

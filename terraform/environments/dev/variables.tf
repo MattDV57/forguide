@@ -25,9 +25,6 @@ variable "environment_terraform_sa_roles" {
 }
 
 variable "workflow_types" {
-<<<<<<< HEAD
-}
-=======
 }
 
 variable "job_timeout" {
@@ -93,4 +90,3 @@ variable "user_queue_memory_quota" {
 variable "user_queue_storage_quota" {
   default = "10Gi"
 }
->>>>>>> 99f04a3 (testiong)

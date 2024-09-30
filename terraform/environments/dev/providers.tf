@@ -49,8 +49,4 @@ data "google_service_account_access_token" "default" {
   target_service_account = local.tf_service_account
   scopes                 = ["userinfo-email", "cloud-platform"]
   lifetime               = "1800s"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 99f04a3 (testiong)

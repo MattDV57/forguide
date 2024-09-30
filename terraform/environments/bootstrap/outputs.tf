@@ -25,25 +25,6 @@ output "common_config" {
   }
 }
 
-<<<<<<< HEAD
-output "api_service_account" {
-  value = module.bootstrap_service_accounts["run-dts-api"]
-}
-
-output "ui_service_account" {
-  value = module.bootstrap_service_accounts["app-dts-ui"]
-}
-
-output "workflows_service_account" {
-  value = module.bootstrap_service_accounts["workflow-dts-api"]
-}
-
-output "rclone_admin_service_account" {
-  value = module.bootstrap_service_accounts["rclone-admin-transfers"]
-}
-
-output "oauth_secret_manager_secrets" {
-=======
 output "service_accounts" {
   value = {
     "run-dts-api" = {
@@ -66,19 +47,12 @@ output "service_accounts" {
 }
 
 output "secret_manager_secrets" {
->>>>>>> 99f04a3 (testiong)
   value = {
     "rclone_admin_client_id"     = module.secret_manager_secrets["rclone-admin-oauth-client-id"].secrets["rclone-admin-oauth-client-id"].name
     "rclone_admin_client_secret" = module.secret_manager_secrets["rclone-admin-oauth-client-secret"].secrets["rclone-admin-oauth-client-secret"].name
     "ui_client_id"               = module.secret_manager_secrets["rclone-ui-oauth-client-id"].secrets["rclone-ui-oauth-client-id"].name
     "ui_client_secret"           = module.secret_manager_secrets["rclone-ui-oauth-client-secret"].secrets["rclone-ui-oauth-client-secret"].name
-<<<<<<< HEAD
-  }
-
-}
-=======
     "group_job_user_limit"       = module.secret_manager_secrets["group-job-user-limit"].secrets["group-job-user-limit"].name
   }
 
 }
->>>>>>> 99f04a3 (testiong)

@@ -17,14 +17,7 @@ locals {
   secret_config = yamldecode(file("./assets/secrets.yaml"))
   iam_config    = yamldecode(file("./assets/iam.yaml"))
 
-<<<<<<< HEAD
-  service_accounts          = try(local.sa_config.service_accounts, {})
-  secrets                   = try(local.secret_config.secrets, {})
-  project_iam_bindings      = try(local.iam_config.project_iam.bindings, {})
-}
-=======
   service_accounts     = try(local.sa_config.service_accounts, {})
   secrets              = try(local.secret_config.secrets, {})
   project_iam_bindings = try(local.iam_config.project_iam.bindings, {})
 }
->>>>>>> 99f04a3 (testiong)

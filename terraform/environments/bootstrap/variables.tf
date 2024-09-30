@@ -35,8 +35,4 @@ variable "bootstrap_project_services" {
 }
 
 variable "terraform_environments" {
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 99f04a3 (testiong)
