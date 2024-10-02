@@ -1,5 +1,5 @@
 # Drive Transfer Service UI
-ReactJS + Express JS UI that allows users to submit jobs and monitor their progress.
+HTML/Javascript + Express JS UI that allows users to submit jobs and monitor their progress.
 
 ## Manual Set Up
 ### APIs and Services
@@ -15,7 +15,7 @@ ReactJS + Express JS UI that allows users to submit jobs and monitor their progr
 6) Click `Create`
 
 ### Config File
-1) Open `config/production.json` file and update the following params
+1) Open `config/production.json` file and update the following params:
 
 | Param | Description |
 | -- | -- |
@@ -121,4 +121,3 @@ export NODE_ENV=development
 ```
 npm start
 ```
-.
