@@ -1,5 +1,5 @@
 runtime: nodejs20
-entrypoint: npm run start
+entrypoint: node ./server.js
 service_account: sa-app-dts-ui@[PROJECT_ID].iam.gserviceaccount.com #TODO: STEP 4
 vpc_access_connector:
   name: projects/[PROJECT_ID]/locations/[DEFAULT_REGION]/connectors/dts-serverless-vpc #TODO: STEP 4

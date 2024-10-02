@@ -1,0 +1,16 @@
+{
+    "firestore": {
+      "dbConfig": {
+        "projectId": "[PROJECT_ID]",
+        "dbName": "dts-[ENVIRONMENT]",
+        "configName": "jobs"
+      }
+    },
+    "app": {
+        "api": "https://drive-transfer-service-api-[PROJECT_NUMBER].[DEFAULT_REGION].run.app",
+        "port": 8080
+    },
+    "secret": {
+      "clientId": "rclone-ui-oauth-client-id"
+    }
+}
