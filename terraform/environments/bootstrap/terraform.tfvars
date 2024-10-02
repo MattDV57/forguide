@@ -17,7 +17,7 @@ project_id         = "mattdv-rclone"         #TODO: STEP 4
 environment        = "dev"        #TODO: STEP 4
 default_region     = "us-central1"     #TODO: STEP 4
 default_prefix     = "mdv"             #TODO: STEP 4
-terraform_sa       = "sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 9
+terraform_sa       = "sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 8
 bootstrap_project_services = [
   "artifactregistry.googleapis.com",
   "cloudidentity.googleapis.com",

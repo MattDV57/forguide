@@ -14,7 +14,7 @@ docker image list
 
 4) Run the following command to tag the image with the path to the `drive-transfer-service` Artifact Registry repository deployed in the "bootstrap" stage.
 ```
-docker tag [IMAGE_ID] [REGION]-docker.pkg.dev/[PROJECT_ID]/drive-transfer-service/gcs-fuse-csi-driver-sidecar-mounter:latest
+docker tag [IMAGE_ID] [REGION]-docker.pkg.dev/mattdv-rclone/drive-transfer-service/gcs-fuse-csi-driver-sidecar-mounter:latest
 ```
 
 5) Use the gcloud CLI credential helper to authenticate you to push to Artifact Registry from your local machine (this assumes you are already authenticated with gcloud by running `gcloud auth login`):
@@ -25,5 +25,5 @@ where [REGION] should be the region you specified in the "bootstrap" stage when 
 
 6) Run the following command to push the Google Cloud Storage FUSE CSI Driver image to the `drive-transfer-service` Artifact Registry repository:
 ```
-docker push [REGION]-docker.pkg.dev/[PROJECT_ID]/drive-transfer-service/gcs-fuse-csi-driver-sidecar-mounter:latest
+docker push [REGION]-docker.pkg.dev/mattdv-rclone/drive-transfer-service/gcs-fuse-csi-driver-sidecar-mounter:latest
 ```

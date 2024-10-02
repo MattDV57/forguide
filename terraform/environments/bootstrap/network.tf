@@ -23,7 +23,7 @@ module "vpc" {
     {
       name                  = "sn-drive-transfer-service"
       region                = var.default_region
-      ip_cidr_range         = "10.7.0.0/24" #TODO: STEP 4
+      ip_cidr_range         = "10.7.0.0/24" #TODO: STEP 9
       enable_private_access = true
       flow_logs_config = {
         aggregation_interval = "INTERVAL_5_SEC"
@@ -33,11 +33,11 @@ module "vpc" {
     {
       name                  = "sn-kueue-nodes"
       region                = var.default_region
-      ip_cidr_range         = "10.8.0.0/24" #TODO: STEP 4
+      ip_cidr_range         = "10.8.0.0/24" #TODO: STEP 9
       enable_private_access = true
       secondary_ip_ranges = {
-        gke-kueue-autopilot-pods = "10.126.0.0/18" #TODO: STEP 4
-        gke-kueue-autopilot-svcs = "10.126.64.0/18" #TODO: STEP 4
+        gke-kueue-autopilot-pods = "10.126.0.0/18" #TODO: STEP 9
+        gke-kueue-autopilot-svcs = "10.126.64.0/18" #TODO: STEP 9
       }
       flow_logs_config = {
         aggregation_interval = "INTERVAL_5_SEC"
@@ -47,7 +47,7 @@ module "vpc" {
     {
       name                  = "sn-serverless-vpc"
       region                = var.default_region
-      ip_cidr_range         = "10.9.0.0/28" #TODO: STEP 4
+      ip_cidr_range         = "10.9.0.0/28" #TODO: STEP 9
       enable_private_access = true
       flow_logs_config = {
         aggregation_interval = "INTERVAL_5_SEC"

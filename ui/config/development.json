@@ -1,8 +1,8 @@
 {
   "firestore": {
     "dbConfig": {
-      "projectId": "[PROJECT_ID]",
-      "dbName": "dts-[ENVIRONMENT]",
+      "projectId": "mattdv-rclone",
+      "dbName": "dts-dev",
       "configName": "jobs"
     }
   },

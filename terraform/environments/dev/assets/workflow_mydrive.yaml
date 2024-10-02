@@ -239,6 +239,7 @@ submitRcloneJob:
                             kind: "Job"
                             metadata: ${dedupeJobMetadata}
                             spec:
+                              backoffLimit: 3
                               parallelism: 1
                               completions: 1
                               suspend: true
@@ -297,6 +298,7 @@ submitRcloneJob:
                             kind: "Job"
                             metadata: ${rootJobMetadata}
                             spec:
+                              backoffLimit: 3
                               parallelism: 1
                               completions: 1
                               suspend: true
@@ -304,6 +306,8 @@ submitRcloneJob:
                               template:
                                 metadata: ${jobTemplateMetadata}
                                 spec:
+                                  nodeSelector:
+                                    cloud.google.com/compute-class: "Balanced"
                                   serviceAccountName: ${"sa-rclone-" + common.userType + "-transfers"}
                                   containers:
                                     - ${gcsFuseContainer}
@@ -389,6 +393,7 @@ submitRcloneJob:
                                               kind: "Job"
                                               metadata: ${childJobMetadata}
                                               spec:
+                                                backoffLimit: 3
                                                 parallelism: 1
                                                 completions: 1
                                                 suspend: true
@@ -396,6 +401,8 @@ submitRcloneJob:
                                                 template:
                                                   metadata: ${jobTemplateMetadata}
                                                   spec:
+                                                    nodeSelector:
+                                                      cloud.google.com/compute-class: "Balanced"
                                                     serviceAccountName: ${"sa-rclone-" + common.userType + "-transfers"}
                                                     containers:
                                                       - ${gcsFuseContainer}
@@ -454,53 +461,66 @@ submitRcloneJob:
                     assign:
                       - dedupeJobStatus: ${default(map.get(dedupeJobResult, "status"), null)}
                       - dedupeJobStatusConditions: ${default(map.get(dedupeJobStatus, "conditions"), null)}
-                      - dedupeJobErrorTags: ${default(map.get(dedupeJobResult, "tags"), null)}
-                      - dedupeJobErrorMessage: ${default(map.get(dedupeJobResult, "message"), "")}
-                - checkDedupeJobErrorResult:
-                    switch:
-                      - condition: ${dedupeJobErrorTags != null}
+                      - dedupeJobSucceeded: ${default(map.get(dedupeJobStatus, "succeeded"), null)}
+                      - dedupeJobFailed: ${default(map.get(dedupeJobStatus, "failed"), null)}
+                      - dedupeJobErrorMessage: ""
+                - checkDedupeJobFailedPods:
+                    switch:                        
+                      - condition: ${dedupeJobFailed != null}
                         steps:
-                          - checkDedupeJobFailedJob:
+                          - checkDedupeJobFailedStatusConditions:
                               switch:
-                                - condition: ${"FailedJobError" in dedupeJobErrorTags}
+                                - condition: ${dedupeJobStatusConditions != null}
                                   steps:
-                                    # SET_STATUS_ERROR
-                                    - createStatusUpdatesDedupeError:
-                                        assign:
-                                          - statusUpdatesDedupeError:
-                                              status:
-                                                type: stringValue
-                                                value: "error"
-                                              status_updated:
-                                                type: timestampValue
-                                                value: ${time.format(sys.now())}
-                                              job_completed:
-                                                type: timestampValue
-                                                value: ${time.format(sys.now())}
-                                              job_error:
-                                                type: stringValue
-                                                value: ${dedupeJobErrorMessage}
-                                    - setJobStatusDedupeError:
-                                        call: setJobStatus
-                                        args:
-                                          jobConfig: ${jobConfig}
-                                          jobConfigPath: ${"projects/" + common.projectId + "/databases/dts-" + common.environment + "/documents/" + firestore.jobCollection + "/" + common.jobId}
-                                          statusUpdates: ${statusUpdatesDedupeError}
-                                        result: jobConfig
-                              next: checkDedupeJobStatusComplete
-                    next: checkDedupeJobStatusComplete
-                - checkDedupeJobStatusComplete:
+                                    - getDedupeJobFailedStatusCondition:
+                                        for:
+                                          value: dedupeJobFailedCondition
+                                          in: ${dedupeJobStatusConditions}
+                                          steps:
+                                            - checkDedupeJobFailedStatusConditionType:
+                                                switch:
+                                                  - condition: ${dedupeJobFailedCondition.type == "Failed"}
+                                                    steps:
+                                                      - assignDedupeJobErrorMessage:
+                                                          assign:
+                                                            - dedupeJobErrorMessage: ${dedupeJobFailedCondition.message}
+                              next: createStatusUpdatesDedupeError
+                    next: checkDedupeJobSucceededPods
+                # SET_STATUS_ERROR
+                - createStatusUpdatesDedupeError:
+                    assign:
+                      - statusUpdatesDedupeError:
+                          status:
+                            type: stringValue
+                            value: "error"
+                          status_updated:
+                            type: timestampValue
+                            value: ${time.format(sys.now())}
+                          job_completed:
+                            type: timestampValue
+                            value: ${time.format(sys.now())}
+                          job_error:
+                            type: stringValue
+                            value: ${dedupeJobErrorMessage}
+                - setJobStatusDedupeError:
+                    call: setJobStatus
+                    args:
+                      jobConfig: ${jobConfig}
+                      jobConfigPath: ${"projects/" + common.projectId + "/databases/dts-" + common.environment + "/documents/" + firestore.jobCollection + "/" + common.jobId}
+                      statusUpdates: ${statusUpdatesDedupeError}
+                    result: jobConfig
+                - checkDedupeJobSucceededPods:
                     switch:
-                      - condition: ${dedupeJobStatusConditions != null}
+                      - condition: ${dedupeJobSucceeded != null}
                         steps:
-                          - checkDedupeJobStatusConditions:
+                          - checkDedupeJobSucceededStatusConditions:
                               for:
-                                value: dedupeJobCondition
+                                value: dedupeJobSucceededCondition
                                 in: ${dedupeJobStatusConditions}
                                 steps:
-                                  - checkDedupeJobStatusConditionType:
+                                  - checkDedupeJobSucceededStatusConditionType:
                                       switch:
-                                        - condition: ${dedupeJobCondition.type == "Complete"}
+                                        - condition: ${dedupeJobSucceededCondition.type == "Complete"}
                                           next: break
                     next: submitJobsToCluster
     - submitJobsToCluster:
@@ -784,7 +804,7 @@ sendStatusNotification:
             job_id: ${jobId}
             status: ${status}
             notify_users: ${list.concat(notifyUsers, userId)}
-            url: ${"https://console.cloud.google.com/workflows/workflow/" + sys.get_env("GOOGLE_CLOUD_LOCATION") + "/shared-rclone-job-workflow/execution/" + sys.get_env("GOOGLE_CLOUD_WORKFLOW_EXECUTION_ID") + "/summary?project=" + projectId}
+            url: ${"https://console.cloud.google.com/workflows/workflow/" + sys.get_env("GOOGLE_CLOUD_LOCATION") + "/mydrive-rclone-job-workflow/execution/" + sys.get_env("GOOGLE_CLOUD_WORKFLOW_EXECUTION_ID") + "/summary?project=" + projectId}
           auth:
             type: OIDC
         result: notifyResult

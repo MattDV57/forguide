@@ -5,7 +5,7 @@ service_accounts:
       "roles/iam.serviceAccountUser":
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
         - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
-        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
+        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 10
       "roles/iam.serviceAccountTokenCreator":
         - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
@@ -39,7 +39,7 @@ service_accounts:
       "roles/iam.serviceAccountUser":
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
         - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
-        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
+        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 10
       "roles/iam.serviceAccountTokenCreator":
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
     project_iam:
@@ -61,7 +61,7 @@ service_accounts:
       "roles/iam.serviceAccountUser":
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
         - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
-        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
+        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 10
       "roles/iam.serviceAccountTokenCreator":
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
     project_iam:
@@ -85,7 +85,7 @@ service_accounts:
       "roles/iam.serviceAccountUser":
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
         - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
-        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
+        # - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 10
       "roles/iam.serviceAccountTokenCreator":
         - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
     project_iam:

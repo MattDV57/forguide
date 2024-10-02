@@ -12,11 +12,11 @@ where [REGION] should be the region you specified in the "bootstrap" stage when 
 
 4) Run the following command to build the Terraform Cloud Builder image on your local machine. You should tag your image with the path to the `terraform-cloudbuilder` Artifact Registry repository deployed in the "bootstrap" stage. 
 ```
-docker build -t [REGION]-docker.pkg.dev/[PROJECT_ID]/terraform-cloudbuilder/terraform:[VERSION] .
+docker build -t [REGION]-docker.pkg.dev/mattdv-rclone/terraform-cloudbuilder/terraform:[VERSION] .
 ```
 where [VERSION] should match the version number specified in your Dockerfile (i.e. 1.9.5).
 
 5) Run the following command to push the Terraform Cloud Builder image to the `terraform-cloudbuilder` Artifact Registry repository:
 ```
-docker push [REGION]-docker.pkg.dev/[PROJECT_ID]/terraform-cloudbuilder/terraform:[VERSION]
+docker push [REGION]-docker.pkg.dev/mattdv-rclone/terraform-cloudbuilder/terraform:[VERSION]
 ```

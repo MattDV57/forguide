@@ -42,7 +42,7 @@ resource "google_cloudbuild_trigger" "api_webhook_trigger" {
 
   github {
     owner = "MattDV57"
-    name  = "forguide"
+    name  = "[GITHUB_REPO_NAME]"
     push {
       branch = "^main$"
     }
@@ -139,7 +139,7 @@ resource "google_cloudbuild_trigger" "ui_webhook_trigger" {
 
   github {
     owner = "MattDV57"
-    name  = "forguide"
+    name  = "[GITHUB_REPO_NAME]"
     push {
       branch = "^main$"
     }
@@ -186,7 +186,7 @@ resource "google_cloudbuild_trigger" "tf_plan_webhook_triggers" {
 
   github {
     owner = "MattDV57"
-    name  = "forguide"
+    name  = "[GITHUB_REPO_NAME]"
     pull_request {
       branch = "^main$"
     }
@@ -280,7 +280,7 @@ resource "google_cloudbuild_trigger" "tf_apply_webhook_triggers" {
 
   github {
     owner = "MattDV57"
-    name  = "forguide"
+    name  = "[GITHUB_REPO_NAME]"
     push {
       branch = "^main$"
     }
@@ -401,7 +401,7 @@ resource "google_cloudbuild_trigger" "terraform_builder_trigger" {
 
   github {
     owner = "MattDV57"
-    name  = "forguide"
+    name  = "[GITHUB_REPO_NAME]"
     push {
       branch = "^main$"
     }
@@ -459,7 +459,7 @@ resource "google_cloudbuild_trigger" "gcs_fuse_trigger" {
 
   github {
     owner = "MattDV57"
-    name  = "forguide"
+    name  = "[GITHUB_REPO_NAME]"
     push {
       branch = "^main$"
     }

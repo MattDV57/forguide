@@ -158,7 +158,7 @@ module "public-dns" {
 | name | description | type | required | default |
 |---|---|:---:|:---:|:---:|
 | [name](variables.tf#L35) | Zone name, must be unique within the project. | <code>string</code> | ✓ |  |
-| [project_id](variables.tf#L40) | Project id for the zone. | <code>string</code> | ✓ |  |
+| mattdv-rclone(variables.tf#L40) | Project id for the zone. | <code>string</code> | ✓ |  |
 | [description](variables.tf#L17) | Domain description. | <code>string</code> |  | <code>&#34;Terraform managed.&#34;</code> |
 | [force_destroy](variables.tf#L23) | Set this to true to delete all records in the zone upon zone destruction. | <code>bool</code> |  | <code>null</code> |
 | [iam](variables.tf#L29) | IAM bindings in {ROLE => [MEMBERS]} format. | <code>map&#40;list&#40;string&#41;&#41;</code> |  | <code>null</code> |
@@ -170,7 +170,7 @@ module "public-dns" {
 | name | description | sensitive |
 |---|---|:---:|
 | [dns_keys](outputs.tf#L17) | DNSKEY and DS records of DNSSEC-signed managed zones. |  |
-| [domain](outputs.tf#L22) | The DNS zone domain. |  |
+| themicrolab.joonix.net(outputs.tf#L22) | The DNS zone domain. |  |
 | [id](outputs.tf#L27) | Fully qualified zone id. |  |
 | [name](outputs.tf#L32) | The DNS zone name. |  |
 | [name_servers](outputs.tf#L37) | The DNS zone name servers. |  |

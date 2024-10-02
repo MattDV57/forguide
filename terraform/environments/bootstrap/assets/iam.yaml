@@ -14,8 +14,8 @@
 
 project_iam:
   bindings: {} # COMMENT OUT THIS LINE IF USING SECURE SOURCE MANAGER AS YOUR GIT REPO
-  # bindings: #TODO: STEP 11
-    # "roles/cloudbuild.builds.editor": #TODO: STEP 11
-    #   - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
-    # "roles/serviceusage.serviceUsageConsumer": #TODO: STEP 11
-    #   - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
+  # bindings: #TODO: STEP 10
+    # "roles/cloudbuild.builds.editor": #TODO: STEP 10
+    #   - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 10
+    # "roles/serviceusage.serviceUsageConsumer": #TODO: STEP 10
+    #   - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 10
