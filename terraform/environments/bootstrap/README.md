@@ -1,10 +1,6 @@
 # Drive Transfer Service: Project Bootstrap
 
-<<<<<<< HEAD
-1) To run the Drive Transfer Service Bootstrap step, your user should have the following IAM roles on the existing project:
-=======
 1) To run the Drive Transfer Service "Bootstrap" step, your user should have the following IAM roles on the existing project:
->>>>>>> 99f04a3 (testiong)
 - Cloud Build Editor
 - Storage Admin
 - Service Usage Admin
@@ -18,7 +14,7 @@
 ```
 gcloud auth login
 gcloud auth application-default login
-gcloud config set project [PROJECT_ID]
+gcloud config set project mattdv-rclone
 ```
 
 3) [Install Terraform](https://developer.hashicorp.com/terraform/install) and also [install tfenv](https://github.com/tfutils/tfenv) package to make it easier to switch to the correct version of Terraform (1.9.5). Run the following commands:
@@ -28,18 +24,18 @@ tfenv use 1.9.5
 ```
 
 4) Do a "find-and-replace" in the  repository for the below values. Most of the values are also marked with `#TODO: STEP 4`. Do not replace any values in the `terraform/modules/` directories:
-- `[BILLING_ACCOUNT_ID]` (Can be found in GCP Console -> Billing, i.e. `XXXXXX-XXXXXX-XXXXXX`)
-- `[PROJECT_ID]` (Can be found in GCP Console -> Cloud overview -> Dashboard)
-- `[PROJECT_NUMBER]` (Can be found in GCP Console -> Cloud overview -> Dashboard)
-- `[DOMAIN]` (Domain associated with the Google Workspace instance, i.e. `example.com`)
-- `[ADMIN_GROUP_EMAIL]` (Google Group email address that contains "admin" users, i.e. `drive-transfer-service-admins@example.com`)
-- `[DEFAULT_REGION]` (GCP region where you would like to deploy your resources, i.e. `us-central1`)
-- `[PREFIX]` (3-7 character prefix that will be used to name some resources, i.e. `dts`)
-- `[ENVIRONMENT]` (the environment you will be deploying this solution to, i.e. `dev`, `uat`, `prod`)
+- `0189FA-E139FD-136A58` (Can be found in GCP Console -> Billing, i.e. `XXXXXX-XXXXXX-XXXXXX`)
+- `mattdv-rclone` (Can be found in GCP Console -> Cloud overview -> Dashboard)
+- `122648953585` (Can be found in GCP Console -> Cloud overview -> Dashboard)
+- `themicrolab.joonix.net` (Domain associated with the Google Workspace instance, i.e. `example.com`)
+- `alladmins@themicrolab.joonix.net` (Google Group email address that contains "admin" users, i.e. `drive-transfer-service-admins@example.com`)
+- `us-central1` (GCP region where you would like to deploy your resources, i.e. `us-central1`)
+- `mdv` (3-7 character prefix that will be used to name some resources, i.e. `dts`)
+- `dev` (the environment you will be deploying this solution to, i.e. `dev`, `uat`, `prod`)
 
 You also should set IP CIDR block values in `terraform/environments/bootstrap/networks.tf.example` so they do not overlap with existing subnets.
 
-5) Rename the `terraform/environments/env` directory to `terraform/environments/[ENVIRONMENT]`.
+5) Rename the `terraform/environments/env` directory to `terraform/environments/dev`.
 
 6) From within the `terraform/environments/bootstrap/` directory, run the following:
 ```
@@ -52,22 +48,19 @@ The output should look like this:
 Outputs:
 
 common_config = {
-  "billing_account_id" = "[BILLING_ACCOUNT_ID]"
-  "bootstrap_project_id" = "[PROJECT_ID]"
-  "default_prefix" = "[PREFIX]"
-  "default_region" = "[DEFAULT_REGION]"
-  "tf_service_account" = "sa-drive-transfer-service-tf@[PROJECT_ID].iam.gserviceaccount.com"
-  "tf_state_bucket" = "bkt-[PREFIX]-dts-tf-state"
+  "billing_account_id" = "0189FA-E139FD-136A58"
+  "bootstrap_project_id" = "mattdv-rclone"
+  "default_prefix" = "mdv"
+  "default_region" = "us-central1"
+  "tf_service_account" = "sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com"
+  "tf_state_bucket" = "bkt-mdv-dts-tf-state"
 }
-<<<<<<< HEAD
-=======
 secret_manager_secrets = {
   ...
 }
 service_accounts = {
   ...
 }
->>>>>>> 99f04a3 (testiong)
 ```
 
 7) This step enabled a set of APIs on your project, created a Terraform service account (among others) and granted them a set of IAM roles on the project, and created a Google Cloud Storage bucket to store the Terraform state files. It also creates a set of Secret Manager secrets and Artifact Registry repositories to hold our container images.
@@ -78,18 +71,6 @@ service_accounts = {
 
 10) Remove the `.example` suffix from the `network.tf` file. Uncomment the `vpc_network` attribute in `outputs.tf` (marked with `#TODO: STEP 10`)
 
-<<<<<<< HEAD
-11) Setup the CI/CD pipelines for the Terraform, API, and UI. CI/CD pipelines are defined for either Secure Source Manager, Github, or Gitlab Enterprise. Remove the `.example` suffix **ONLY** from the appropriate `cloudbuild_*.tf` file, populate the appropriate Secret Manager secrets, and replace the  placeholder values:
-
-### Secure Source Manager (`cloudbuild_ssm.tf`):
-a. Uncomment "securesourcemanager.googleapis.com" in `terraform.tfvars` and remove the commented lines from `assets/iam.yaml`. Also remove the commented lines in `assets/sa.yaml` marked `#TODO: STEP 10`
-b. Create a random 20 character string by running the below command (on a Mac) and save this value in the `ssm-webhook-secret` Secret Manager secret.
-```
-openssl rand -base64 20 |md5 |head -c20;echo
-```
-c. Replace the following placeholders in `cloudbuild_ssm.tf`:
-- `[SSM_REPO_URI]`
-=======
 11) Setup the CI/CD pipelines for the Terraform, API, and UI. CI/CD pipelines are defined for either Secure Source Manager, Github, or Gitlab Enterprise. Remove the `.example` suffix **ONLY** from the appropriate `cloudbuild_*.tf` file (Secure Source Manager does not have one as the triggers are defined in `.cloudbuild/triggers.yaml`), populate the appropriate Secret Manager secrets, and replace any placeholder values:
 
 ### Secure Source Manager:
@@ -103,22 +84,17 @@ git add .
 git commit -m "Initial commit"
 git push origin main
 ```
->>>>>>> 99f04a3 (testiong)
 
 ### Github (`cloudbuild_github.tf`):
 a. [Install the Cloud Build GitHub App](https://github.com/apps/google-cloud-build) on your GitHub account or in an organization you own.
 b. [Create a personal access token (classic)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). Make sure to set your token to have no expiration date and select the following permissions when prompted in GitHub: `repo` and `read:user`. If your app is installed in an organization, make sure to also select the `read:org` permission.
 c. Save this value in the `github-pat` Secret Manager secret.
 d. Replace the following placeholders in `cloudbuild_github.tf`:
-- `[GITHUB_ORG]`
-- `[GITHUB_REPO_NAME]`
-- `[GITHUB_REPO_URI]`
-- `[INSTALLATION_ID]` (Installation ID of your Cloud Build GitHub app. Your installation ID can be found in the URL of your Cloud Build GitHub App. You can find this value by navigating to your repository's "Settings" > "GitHub Apps" > "Google Cloud Build" > "Configure". In the URL, `https://github.com/settings/installations/1234567`, the installation ID is the numerical value `1234567`)
-<<<<<<< HEAD
-e. Navigate to `https://console.cloud.google.com/cloud-build/triggers;region=global/connect?project=[PROJECT_NUMBER]` to finish connecting Github to your project.
-=======
-e. Navigate to `https://console.cloud.google.com/cloud-build/triggers;region=global/connect?project=[PROJECT_NUMBER]` to finish connecting Github to your project. Ensure you select the same region for the connection as the triggers (i.e. [DEFAULT_REGION]).
->>>>>>> 99f04a3 (testiong)
+- `MattDV57`
+- `forguide`
+- `https://github.com/MattDV57/forguide.git`
+- `55524472` (Installation ID of your Cloud Build GitHub app. Your installation ID can be found in the URL of your Cloud Build GitHub App. You can find this value by navigating to your repository's "Settings" > "GitHub Apps" > "Google Cloud Build" > "Configure". In the URL, `https://github.com/settings/installations/1234567`, the installation ID is the numerical value `1234567`)
+e. Navigate to `https://console.cloud.google.com/cloud-build/triggers;region=global/connect?project=122648953585` to finish connecting Github to your project. Ensure you select the same region for the connection as the triggers (i.e. us-central1).
 
 ### Gitlab Enterprise (`cloudbuild_gitlab.tf`):
 a. On the GitLab Enterprise Edition page for your instance, click on your avatar in the upper-right corner. Click Edit profile, then select Access tokens.

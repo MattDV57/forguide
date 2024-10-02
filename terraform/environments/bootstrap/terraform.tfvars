@@ -13,11 +13,11 @@
 # * limitations under the License.
 
 billing_account_id = "0189FA-E139FD-136A58" #TODO: STEP 4
-project_id         = "transferrclone"         #TODO: STEP 4
+project_id         = "mattdv-rclone"         #TODO: STEP 4
 environment        = "dev"        #TODO: STEP 4
 default_region     = "us-central1"     #TODO: STEP 4
-default_prefix     = "dts"             #TODO: STEP 4
-terraform_sa       = "sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 9
+default_prefix     = "mdv"             #TODO: STEP 4
+terraform_sa       = "sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 9
 bootstrap_project_services = [
   "artifactregistry.googleapis.com",
   "cloudidentity.googleapis.com",

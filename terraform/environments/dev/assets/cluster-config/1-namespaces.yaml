@@ -1,17 +1,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-<<<<<<< HEAD
-  name: stanford-admin
-=======
   name: dts-admin
->>>>>>> 99f04a3 (testiong)
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-<<<<<<< HEAD
-  name: stanford-user
-=======
   name: dts-user
->>>>>>> 99f04a3 (testiong)

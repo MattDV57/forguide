@@ -17,19 +17,19 @@ service_accounts:
     prefix: "sa"
     sa_iam:
       "roles/iam.serviceAccountUser":
-        - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
+        - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
         - "group:alladmins@themicrolab.joonix.net" #TODO: STEP 4
     project_iam:
-      "transferrclone": #TODO: STEP 4
+      "mattdv-rclone": #TODO: STEP 4
         - "roles/container.admin"
         - "roles/run.invoker"
   "kueue-cluster-nodes":
     prefix: "sa"
     sa_iam:
       "roles/iam.serviceAccountUser":
-        - "serviceAccount:sa-drive-transfer-service-tf@transferrclone.iam.gserviceaccount.com" #TODO: STEP 4
+        - "serviceAccount:sa-drive-transfer-service-tf@mattdv-rclone.iam.gserviceaccount.com" #TODO: STEP 4
     project_iam:
-      "transferrclone": #TODO: STEP 4
+      "mattdv-rclone": #TODO: STEP 4
         - "roles/artifactregistry.reader"
         - "roles/logging.logWriter"
         - "roles/monitoring.metricWriter"

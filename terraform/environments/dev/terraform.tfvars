@@ -12,7 +12,7 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 
-project_id  = "transferrclone"  #TODO: STEP 4
+project_id  = "mattdv-rclone"  #TODO: STEP 4
 environment = "dev" #TODO: STEP 4
 environment_project_services = [
   "admin.googleapis.com",

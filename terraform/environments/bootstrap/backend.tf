@@ -14,7 +14,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "bkt-dts-dts-tf-state" #TODO: STEP 4
+    bucket = "bkt-mdv-dts-tf-state" #TODO: STEP 4
     prefix = "bootstrap"
   }
 }

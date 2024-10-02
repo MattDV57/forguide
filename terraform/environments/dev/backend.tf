@@ -14,7 +14,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "bkt-dts-dts-tf-state" #TODO: STEP 4
+    bucket = "bkt-mdv-dts-tf-state" #TODO: STEP 4
     prefix = "dev"             #TODO: STEP 4   
   }
 }
@@ -23,7 +23,7 @@ terraform {
 data "terraform_remote_state" "bootstrap" {
   backend = "gcs"
   config = {
-    bucket = "bkt-dts-dts-tf-state" #TODO: STEP 4
+    bucket = "bkt-mdv-dts-tf-state" #TODO: STEP 4
     prefix = "bootstrap"
   }
 }

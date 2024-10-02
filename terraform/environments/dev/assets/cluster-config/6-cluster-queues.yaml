@@ -15,21 +15,12 @@
 apiVersion: kueue.x-k8s.io/v1beta1
 kind: ClusterQueue
 metadata:
-<<<<<<< HEAD
-  name: stanford-admin-cq
-spec:
-  cohort: stanford-cohort
-  namespaceSelector:
-    matchLabels:
-      kubernetes.io/metadata.name: stanford-admin #Only stanford-admin can submit jobs direclty to this queue, but will be able to share it through the cohort
-=======
   name: dts-admin-cq
 spec:
   cohort: dts-cohort
   namespaceSelector:
     matchLabels:
       kubernetes.io/metadata.name: dts-admin #Only dts-admin can submit jobs direclty to this queue, but will be able to share it through the cohort
->>>>>>> 99f04a3 (testiong)
   queueingStrategy: BestEffortFIFO # Default queueing strategy
   resourceGroups:
   - coveredResources: ["cpu", "memory", "ephemeral-storage"]
@@ -37,38 +28,21 @@ spec:
     - name: "default-flavor"
       resources:
       - name: "cpu"
-<<<<<<< HEAD
-        nominalQuota: 10
-      - name: "memory"
-        nominalQuota: 10Gi
-      - name: "ephemeral-storage"
-        nominalQuota: 10Gi
-=======
         nominalQuota: ${admin_queue_cpu_quota}
       - name: "memory"
         nominalQuota: ${admin_queue_memory_quota}
       - name: "ephemeral-storage"
         nominalQuota: ${admin_queue_storage_quota}
->>>>>>> 99f04a3 (testiong)
 ---
 apiVersion: kueue.x-k8s.io/v1beta1
 kind: ClusterQueue
 metadata:
-<<<<<<< HEAD
-  name: stanford-user-cq
-spec:
-  cohort: stanford-cohort
-  namespaceSelector:
-    matchLabels:
-      kubernetes.io/metadata.name: stanford-user #Only stanford-user can submit jobs direclty to this queue, but will be able to share it through the cohort
-=======
   name: dts-user-cq
 spec:
   cohort: dts-cohort
   namespaceSelector:
     matchLabels:
       kubernetes.io/metadata.name: dts-user #Only dts-user can submit jobs direclty to this queue, but will be able to share it through the cohort
->>>>>>> 99f04a3 (testiong)
   queueingStrategy: BestEffortFIFO # Default queueing strategy
   resourceGroups:
   - coveredResources: ["cpu", "memory", "ephemeral-storage"]
@@ -76,16 +50,8 @@ spec:
     - name: "default-flavor"
       resources:
       - name: "cpu"
-<<<<<<< HEAD
-        nominalQuota: 10
-      - name: "memory"
-        nominalQuota: 10Gi
-      - name: "ephemeral-storage"
-        nominalQuota: 10Gi
-=======
         nominalQuota: ${user_queue_cpu_quota}
       - name: "memory"
         nominalQuota: ${user_queue_memory_quota}
       - name: "ephemeral-storage"
         nominalQuota: ${user_queue_storage_quota}
->>>>>>> 99f04a3 (testiong)

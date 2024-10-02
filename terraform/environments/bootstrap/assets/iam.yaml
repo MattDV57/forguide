@@ -13,17 +13,9 @@
 # * limitations under the License.
 
 project_iam:
-<<<<<<< HEAD
-  bindings: {}
-    # "roles/cloudbuild.builds.editor":
-    #   - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 4
-    # "roles/serviceusage.serviceUsageConsumer":
-    #   - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 4
-=======
   bindings: {} # COMMENT OUT THIS LINE IF USING SECURE SOURCE MANAGER AS YOUR GIT REPO
   # bindings: #TODO: STEP 11
     # "roles/cloudbuild.builds.editor": #TODO: STEP 11
-    #   - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
+    #   - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
     # "roles/serviceusage.serviceUsageConsumer": #TODO: STEP 11
-    #   - "serviceAccount:service-154277185476@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11
->>>>>>> 99f04a3 (testiong)
+    #   - "serviceAccount:service-122648953585@gcp-sa-sourcemanager.iam.gserviceaccount.com" #TODO: STEP 11

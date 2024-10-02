@@ -15,29 +15,15 @@
 apiVersion: kueue.x-k8s.io/v1beta1
 kind: LocalQueue
 metadata:
-<<<<<<< HEAD
-  namespace: stanford-admin # LocalQueue under stanford-admin namespace
-  name: stanford-admin-lq
-spec:
-  clusterQueue: stanford-admin-cq # Point to the stanford-admin ClusterQueue
-=======
   namespace: dts-admin # LocalQueue under dts-admin namespace
   name: dts-admin-lq
 spec:
   clusterQueue: dts-admin-cq # Point to the dts-admin ClusterQueue
->>>>>>> 99f04a3 (testiong)
 ---
 apiVersion: kueue.x-k8s.io/v1beta1
 kind: LocalQueue
 metadata:
-<<<<<<< HEAD
-  namespace: stanford-user # LocalQueue under stanford-user namespace
-  name: stanford-user-lq
-spec:
-  clusterQueue: stanford-user-cq # Point to the stanford-user ClusterQueue
-=======
   namespace: dts-user # LocalQueue under dts-user namespace
   name: dts-user-lq
 spec:
   clusterQueue: dts-user-cq # Point to the dts-user ClusterQueue
->>>>>>> 99f04a3 (testiong)

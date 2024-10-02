@@ -18,7 +18,7 @@ resource "google_cloudbuildv2_connection" "github_host_connection" {
   name     = "github-host"
 
   github_config {
-    app_installation_id = "55238649"
+    app_installation_id = "55524472"
     authorizer_credential {
       oauth_token_secret_version = "projects/${module.project.project_id}/secrets/github-pat/versions/latest"
     }
@@ -62,10 +62,12 @@ resource "google_cloudbuild_trigger" "api_webhook_trigger" {
     }
     images = [
       "$${_REGION}-docker.pkg.dev/$PROJECT_ID/$${_AR_REGISTRY_NAME}/$${_IMAGE}:$COMMIT_SHA",
-    ]  
+      "$${_REGION}-docker.pkg.dev/$PROJECT_ID/$${_AR_REGISTRY_NAME}/$${_IMAGE}:latest"
+    ]
     step {
       id         = "docker-build"
       name       = "gcr.io/cloud-builders/docker"
+      dir        = "$${_REPO_DIR}"
       entrypoint = "sh"
       args = [
         "-xe",

@@ -356,11 +356,7 @@ submitRcloneJob:
           - clusterLocation: ${sys.get_env("CLUSTER_LOCATION")}
           - clusterId: ${sys.get_env("CLUSTER_NAME")}
           - clusterFullName: ${"projects/" + common.projectId + "/locations/" + clusterLocation + "/clusters/" + clusterId}
-<<<<<<< HEAD
-          - clusterNamespace: ${"stanford-" + common.userType}
-=======
           - clusterNamespace: ${"dts-" + common.userType}
->>>>>>> 99f04a3 (testiong)
     - assignMemberJobVars:
         assign:
           - memberJobId: ${jobId}
@@ -371,32 +367,18 @@ submitRcloneJob:
     - assignJobManifestVars:
         assign:
           - dedupeJobMetadata:
-<<<<<<< HEAD
-              namespace: ${"stanford-" + common.userType}
-              generateName: ${"rclone-" + common.userType + "-dedupe-" + text.to_lower(common.jobId) + "-" + memberJobId + "-"}
-              labels:
-                "kueue.x-k8s.io/queue-name": ${"stanford-" + common.userType + "-lq"}
-=======
               namespace: ${"dts-" + common.userType}
               generateName: ${"rclone-" + common.userType + "-dedupe-" + text.to_lower(common.jobId) + "-" + memberJobId + "-"}
               labels:
                 "kueue.x-k8s.io/queue-name": ${"dts-" + common.userType + "-lq"}
->>>>>>> 99f04a3 (testiong)
                 job-id: ${common.jobId}
                 job-type: "dedupe"
                 member-id: ${memberJobId}
           - rootJobMetadata:
-<<<<<<< HEAD
-              namespace: ${"stanford-" + common.userType}
-              generateName: ${"rclone-" + common.userType + "-" + common.jobType + "-root-" + text.to_lower(common.jobId) + "-" + memberJobId + "-"}
-              labels:
-                "kueue.x-k8s.io/queue-name": ${"stanford-" + common.userType + "-lq"}
-=======
               namespace: ${"dts-" + common.userType}
               generateName: ${"rclone-" + common.userType + "-" + common.jobType + "-root-" + text.to_lower(common.jobId) + "-" + memberJobId + "-"}
               labels:
                 "kueue.x-k8s.io/queue-name": ${"dts-" + common.userType + "-lq"}
->>>>>>> 99f04a3 (testiong)
                 job-id: ${common.jobId}
                 job-type: "root"
                 member-id: ${memberJobId}
@@ -585,17 +567,10 @@ submitRcloneJob:
                                     - assignChildJobManifestVars:
                                         assign:
                                           - childJobMetadata:
-<<<<<<< HEAD
-                                              namespace: ${"stanford-" + common.userType}
-                                              generateName: ${"rclone-" + common.userType + "-" + common.jobType + "-child-" + idx + "-" + memberJobId + "-"}
-                                              labels:
-                                                "kueue.x-k8s.io/queue-name": ${"stanford-" + common.userType + "-lq"}
-=======
                                               namespace: ${"dts-" + common.userType}
                                               generateName: ${"rclone-" + common.userType + "-" + common.jobType + "-child-" + idx + "-" + memberJobId + "-"}
                                               labels:
                                                 "kueue.x-k8s.io/queue-name": ${"dts-" + common.userType + "-lq"}
->>>>>>> 99f04a3 (testiong)
                                                 parent-job-id: ${common.jobId}
                                                 root-job-id: ${memberJobId}
                                                 job-id: ${childJobId}

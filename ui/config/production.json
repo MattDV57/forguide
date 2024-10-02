@@ -1,16 +1,16 @@
 {
-  "firestore": {
-    "dbConfig": {
-      "projectId": "transferrclone",
-      "dbName": "dts-dev",
-      "configName": "jobs"
+    "firestore": {
+      "dbConfig": {
+        "projectId": "mattdv-rclone",
+        "dbName": "dts-dev",
+        "configName": "jobs"
+      }
+    },
+    "app": {
+        "api": "https://drive-transfer-service-api-122648953585.us-central1.run.app",
+        "port": 8080
+    },
+    "secret": {
+      "clientId": "rclone-ui-oauth-client-id"
     }
-  },
-  "app": {
-    "api": "https://drive-transfer-service-api-154277185476.us-central1.run.app",
-    "port": 8080
-  },
-  "secret": {
-    "clientId": "rclone-ui-oauth-client-id"
-  }
 }

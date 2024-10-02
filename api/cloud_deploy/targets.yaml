@@ -5,9 +5,9 @@ metadata:
   labels: {}
 requireApproval: false
 run:
-  location: projects/transferrclone/locations/us-central1
+  location: projects/mattdv-rclone/locations/us-central1
 executionConfigs:
 - usages:
   - RENDER
   - DEPLOY
-  serviceAccount: sa-drive-transfer-service-cd@transferrclone.iam.gserviceaccount.com
+  serviceAccount: sa-drive-transfer-service-cd@mattdv-rclone.iam.gserviceaccount.com

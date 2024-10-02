@@ -23,10 +23,10 @@ spec:
     spec:
       containerConcurrency: 80
       timeoutSeconds: 300
-      serviceAccountName: sa-run-dts-api@transferrclone.iam.gserviceaccount.com
+      serviceAccountName: sa-run-dts-api@mattdv-rclone.iam.gserviceaccount.com
       containers:
       - name: api
-        image: us-central1-docker.pkg.dev/transferrclone/drive-transfer-service/api
+        image: us-central1-docker.pkg.dev/mattdv-rclone/drive-transfer-service/api
         ports:
         - name: http1
           containerPort: 8080
@@ -47,17 +47,17 @@ spec:
               key: latest
               name: group-job-user-limit
         - name: PROJECT_ID
-          value: transferrclone
+          value: mattdv-rclone
         - name: ENVIRONMENT
           value: dev
         - name: REGION
           value: us-central1
         - name: CLOUD_RUN_SA
-          value: sa-run-dts-api@transferrclone.iam.gserviceaccount.com
+          value: sa-run-dts-api@mattdv-rclone.iam.gserviceaccount.com
         - name: RCLONE_ADMIN_SA
-          value: sa-rclone-admin-transfers@transferrclone.iam.gserviceaccount.com
+          value: sa-rclone-admin-transfers@mattdv-rclone.iam.gserviceaccount.com
         - name: RCLONE_CONFIG_BUCKET
-          value: bkt-dts-rclone-config-mount
+          value: bkt-mdv-rclone-config-mount
         resources:
           limits:
             cpu: 2000m
